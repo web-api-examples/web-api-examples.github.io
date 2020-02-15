@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Battery API">
+<meta name="description" content="API for getting battery information">
+<meta name="image" content="">
+<meta name="site" content="">
+
 <title>Web APIs Battery Example</title>
 
 <style>
@@ -26,6 +32,7 @@
         justify-content: center;
         align-items: center;
         height: 100%;
+        margin:0;
     }
 
     .web-api-cnt {
@@ -64,6 +71,33 @@
         padding-bottom: 5px;
     }
 
+    button {
+        background-color: green;
+        color: white;
+        padding: 6px 12px;
+        font-size: 14px;
+        margin-bottom: 0;
+        border-radius: 4px;
+        background-image: none;
+        border: 1px solid transparent;
+    }
+
+    #error {
+        width:inherit;
+        background-color: #ff4500a1;
+        padding: 4px;
+        text-align: left;
+        color: white;
+        font-size: 15px;
+
+        border-left-color:#bd3300;
+        border-left-style:solid;
+    }
+
+    .close {
+        display: none;
+    }
+
     @media(max-width:500px) {
         .web-api-cnt {
             width: 100%;
@@ -77,24 +111,38 @@
         <h2>Web APIs<h2>
     </header>
     <div class="web-api-cnt">
-        <div>Battery Level:</div>
-        <button>Get Battery Status</button>
 
         <div class="web-api-card">
             <div class="web-api-card-head">
-                <a href="./battery.html">Battery API</a>
+                Demo
             </div>
             <div class="web-api-card-body">
-                This API provides information of the charge level of the battery in our system, and events to monitor our battery level status.
+                <div id="error" class="close"></div>
+                <div>Battery Level: <span id="batteryLevel"></span></div>
+                <div>Battery Charging: <span id="batteryCharging"></span></div>
+                <button onclick="getBattery()">Get Battery Status</button>
             </div>
         </div>
-
-
     </div>
 </body>
 
 <script>
-    navigator.getBattery()
+    function getBattery() {
+        if(navigator.getBattery) {
+            navigator.getBattery().then(battery => {
+                battery.addEventListener("levelchange", () => {
+                    batteryLevel.innerHTML = battery.level * 100 + "%"
+                })
+
+                battery.addEventListener("chargingchange", () => {
+                    batteryCharging.innerHTML =  battery.charging ? "Yes" : "No"                   
+                })
+            })
+        } else {
+            error.innerHTML = "Battery API not supported."
+            error.classList.remove("close")
+        }
+    }
 </script>
 
 </html>

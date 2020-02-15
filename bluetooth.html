@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Bluetooth API">
+<meta name="description" content="API for Bluetooth communication and interaction.">
+<meta name="image" content="">
+<meta name="site" content="">
+
 <title>Web APIs Bluetooth Example</title>
 
 <style>
@@ -26,6 +32,7 @@
         justify-content: center;
         align-items: center;
         height: 100%;
+        margin:0;
     }
 
     .web-api-cnt {
@@ -75,9 +82,20 @@
         border: 1px solid transparent;
     }
 
-    audio {
-        width:100%;
-        height:inherit;
+    #error {
+        width: inherit;
+        background-color: #ff4500a1;
+        padding: 4px;
+        text-align: left;
+        color: white;
+        font-size: 15px;
+
+        border-left-color:#bd3300;
+        border-left-style:solid;
+    }
+
+    .close {
+        display: none;
     }
 
     @media(max-width:500px) {
@@ -99,6 +117,7 @@
                 Demo
             </div>
             <div class="web-api-card-body">
+                <div id="error" class="close"></div>
                 <div>
                     <div>Device Name: <span id="dname"></span></div>
                     <div>Device ID: <span id="did"></span></div>
@@ -117,15 +136,21 @@
 
 <script>
     function bluetoothAction(){
-        navigator.bluetooth.requestDevice({
-            acceptAllDevices: true
-        }).then(device => {            
-            dname.innerHTML = device.name
-            did.innerHTML = device.id
-            dconnected.innerHTML = device.connected
-        }).catch(err => {
-            console.error("Oh my!! Something went wrong.")
-        })
+        if(navigator.bluetooth) {
+            navigator.bluetooth.requestDevice({
+                acceptAllDevices: true
+            }).then(device => {            
+                dname.innerHTML = device.name
+                did.innerHTML = device.id
+                dconnected.innerHTML = device.connected
+            }).catch(err => {
+                error.innerHTML = "Oh my!! Something went wrong."
+                error.classList.remove("close")
+            })
+        } else {
+            error.innerHTML = "Bluetooth is not supported."            
+            error.classList.remove("close")
+        }
     }
 </script>
 

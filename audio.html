@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Web Audio API">
+<meta name="description" content="API for synthesizing and addding effects to audio.">
+<meta name="image" content="">
+<meta name="site" content="">
+
 <title>Web APIs Audio Example</title>
 
 <style>
@@ -26,6 +32,7 @@
         justify-content: center;
         align-items: center;
         height: 100%;
+        margin:0;
     }
 
     .web-api-cnt {
@@ -138,14 +145,9 @@
             pannerNode = new StereoPannerNode(audioContext, { pan:0 })
 
             mediaSource.connect(volNode).connect(pannerNode).connect(audioContext.destination)
-
-            l(audioContext.destination)
-            l(volNode.gain)
-            l(mediaSource)
         }
 
         function play() {
-            //mediaSource.mediaElement.play()
             audio.play()            
         }
 
