@@ -145,8 +145,10 @@
     }
 
     function tapToSpeak() {
-        var SpeechRecognition = SpeechRecognition;
-        const recognition = new SpeechRecognition()
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition; 
+        //alert(window.SpeechRecognition);
+        const recognition = new SpeechRecognition();
+        //alert(recognition);
         recognition.onstart = function() { }
 
         recognition.onresult = function(event) {
@@ -156,7 +158,7 @@
         }
 
         recognition.onerror = function(ev) {
-            console.error(ev)
+            console.error(ev);//alert(ev);
         }
 
         recognition.start()
