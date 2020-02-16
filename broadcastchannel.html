@@ -13,107 +13,55 @@
 <title>Web APIs Broadcast Channel Example</title>
 
 <style>
-/*        header {
-            height: 48px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            margin-left: 15%;
-            margin-right: 15%;
-            background-color: green;
-            color:white;
-            -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-        }
 
-    body {
-        background-color: #80808029;
+    .chatArea {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        margin:0;
-    }
-
-    .web-api-cnt {
-        width: 500px;
-        background: transparent;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
     }
 
-    .web-api-card {
+    #displayMsg {
+        overflow-x: auto;
+        height: 236px;
+    }
+
+    .chat-msg {
+        //height: 40px;
+        //display: flex;
+        //flex-direction: row;
+        //align-items: center;
+
+        width:70%;
+        margin: 2px;
+        padding: 2px;
+        //border-left-color:green;
+        //border-left-style:solid;
+
+        background-color: orangered;
         border-radius: 2px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-        background-color: white;
-        margin:4px;
-    }
-
-    .web-api-card-head {
-        text-align: center;
-        border-bottom-width:1px;
-        border-bottom-color:gray;
-        border-bottom-style:solid;
-        font-size: 24px;
-
-        border-top-left-radius: 2px;
-        border-top-right-radius: 2px;
-        border-top-color:green;
-        border-top-style:solid;
-
-        font-weight: 600;
-    }
-    .web-api-card-body {
-        text-align: center;
-        font-size: 21px;
-        padding-bottom: 5px;
-    }
-
-    button {
-        background-color: green;
+        position: relative;
         color: white;
-        padding: 6px 12px;
-        font-size: 14px;
-        margin-bottom: 0;
-        border-radius: 4px;
-        background-image: none;
-        border: 1px solid transparent;
+
+        font-size: 16px;
     }
 
-    .chat-msg {
-        height: 40px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+    .chat-msg::before, .chat-msg::after {
+        content: ' ';
+        border: solid transparent;
+        top: 15px;
+        right:100%;
+        position: absolute;
 
-        margin: 2px;
-        padding: 2px;
-        border-left-color:green;
-        border-left-style:solid;
+        height:0;
+        width:0;
+        pointer-events: none;
     }
 
-    @media(max-width:500px) {
-        .web-api-cnt {
-            width: 100%;
-        }        
-    }
-*/
-
-    .chat-msg {
-        height: 40px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        margin: 2px;
-        padding: 2px;
-        border-left-color:green;
-        border-left-style:solid;
+    .page-info {
+        font-size:14px;
+        border-bottom-color: green;
+        border-bottom-style: solid;
     }
 
 </style>
@@ -129,17 +77,14 @@
                 Demo - BroadcastChannel
             </div>
             <div class="web-api-card-body">
+                <div class="page-info">Open this page in another <i>tab</i>, <i>window</i> or <i>iframe</i> to chat with them.</div>
                 <div id="error" class="close"></div>
                 <div id="displayMsg" style="font-size:19px;text-align:left;">
                 </div>
-                <div>
+                <div class="chatArea">
                     <input id="input" type="text" placeholder="Type your message" />
-                </div>
-
-                <div>
                     <button onclick="sendMsg()">Send Msg to Channel</button>
                 </div>
-
             </div>
         </div>
 
@@ -147,29 +92,40 @@
 </body>
 
 <script>
-    if(BroadcastChannel){
-        const politicsChannel = new BroadcastChannel("politics")
+    const l = console.log;
+    try {
+        var politicsChannel = new BroadcastChannel("politics")
         politicsChannel.onmessage = onMessage
-        const userId = Date.now()
-
-        function onMessage(e) {     
-            const {msg,id}=e.data   
-            const newHTML = "<div class='chat-msg'><span><i>"+id+"</i>: "+msg+"</span></div>"
-            displayMsg.innerHTML = displayMsg.innerHTML + newHTML
-        }
-
-        function sendMsg() {
-            politicsChannel.postMessage({msg:input.value,id:userId})
-
-            const newHTML = "<div class='chat-msg'><span><i>Me</i>: "+input.value+"</span></div>"
-            displayMsg.innerHTML = displayMsg.innerHTML + newHTML
-
-            input.value = ""
-        }
-    } else {
+        var userId = Date.now()
+    } catch(e) {
         error.innerHTML = "BroadcastChannel API not supported in this device."
         error.classList.remove("close")
     }
+
+    input.addEventListener("keydown", (e) => {
+        if(e.keyCode === 13 && e.target.value.trim().length > 0) {
+            sendMsg()            
+        }
+    })
+
+    function onMessage(e) {     
+        const {msg,id}=e.data   
+        const newHTML = "<div class='chat-msg'><span><i>"+id+"</i>: "+msg+"</span></div>"
+        displayMsg.innerHTML = displayMsg.innerHTML + newHTML
+        displayMsg.scrollTop = displayMsg.scrollHeight
+    }
+
+    function sendMsg() {
+        politicsChannel.postMessage({msg:input.value,id:userId})
+
+        const newHTML = "<div class='chat-msg'><span><i>Me</i>: "+input.value+"</span></div>"
+        displayMsg.innerHTML = displayMsg.innerHTML + newHTML
+
+        input.value = ""
+
+        displayMsg.scrollTop = displayMsg.scrollHeight
+    }
+        
 
 </script>
 
