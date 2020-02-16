@@ -135,11 +135,12 @@
     function resizeHeight(e) {
         resizeBox.style.height = `${e}px`
     }
-
+    
     const resizeObserver = new ResizeObserver(entries => {
         for(const entry of entries) {
-            if(entry.contentBoxSize)
-                stat.innerHTML = "Box re-sized. Height:" + entry.target.style.height + " - Width:" + entry.target.style.width
+            //if(entry.contentBoxSize) {
+                stat.innerHTML = "Box re-sized. Height:" + entry.target.style.height + " - Width:" + entry.target.style.width;
+            //}
         }
     })
 
