@@ -7,10 +7,13 @@
 <meta name="image" content="">
 <meta name="site" content="">
 
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
 <title>Web APIs Pointer Lock Example</title>
 
 <style>
-        header {
+/*        header {
             height: 48px;
             width: 100%;
             display: flex;
@@ -100,6 +103,20 @@
             width: 100%;
         }        
     }
+*/
+    #box {
+        background-color: green;
+        width: 100%;
+        height: 400px;
+    }
+
+    #ball {
+        border-radius: 50%;
+        background-color: red;
+        width:50px;
+        height: 50px;
+    }
+
 
 </style>
 
@@ -111,9 +128,10 @@
 
         <div class="web-api-card">
             <div class="web-api-card-head">
-                Demo
+                Demo - PointerLock
             </div>
             <div class="web-api-card-body">
+                <div id="error" class="close"></div>
                 <div id="box">
                 <div id="ball"></div>
                 </div>
@@ -124,9 +142,14 @@
 </body>
 
 <script>
-    const l =console.log
+    const l = console.log
     box.addEventListener("click", () => {
-        box.requestPointerLock()
+        if(box.requestPointerLock)
+            box.requestPointerLock()
+        else {
+            error.innerHTML = "PointerLock API not supported in this device."
+            error.classList.remove("close")            
+        }
     })
 
     document.addEventListener("pointerlockchange",(e)=> {

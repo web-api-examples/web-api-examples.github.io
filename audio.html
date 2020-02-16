@@ -7,10 +7,14 @@
 <meta name="image" content="">
 <meta name="site" content="">
 
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
+
 <title>Web APIs Audio Example</title>
 
 <style>
-        header {
+/*        header {
             height: 48px;
             width: 100%;
             display: flex;
@@ -92,6 +96,11 @@
             width: 100%;
         }        
     }
+*/
+    audio {
+        width:100%;
+        height:inherit;
+    }
 
 </style>
 
@@ -103,9 +112,10 @@
 
         <div class="web-api-card">
             <div class="web-api-card-head">
-                Demo
+                Demo - Audio
             </div>
             <div class="web-api-card-body">
+                <div id="error" class="close"></div>
                 <div>
                     <audio controls src="./audio.mp3" id="audio"></audio>
                 </div>
@@ -131,20 +141,26 @@
 <script>
     const l = console.log
     let audioFromAudioFile = (function() {
-        let audioContext
-        let volNode
-        let pannerNode
-        let mediaSource
+        var audioContext
+        var volNode
+        var pannerNode
+        var mediaSource
 
         function init() {
             l("Init")
-            audioContext = new AudioContext()        
-            mediaSource = audioContext.createMediaElementSource(audio)
-            volNode = audioContext.createGain()
-            volNode.gain.value = 3.4
-            pannerNode = new StereoPannerNode(audioContext, { pan:0 })
+            if(AudioContext) {
+                audioContext = new AudioContext()        
+                mediaSource = audioContext.createMediaElementSource(audio)
+                volNode = audioContext.createGain()
+                volNode.gain.value = 1
+                pannerNode = new StereoPannerNode(audioContext, { pan:0 })
 
-            mediaSource.connect(volNode).connect(pannerNode).connect(audioContext.destination)
+                mediaSource.connect(volNode).connect(pannerNode).connect(audioContext.destination)
+            }
+            else {
+                error.innerHTML = "The Web Audio API is not supported in this device."
+                error.classList.remove("close")
+            }
         }
 
         function play() {

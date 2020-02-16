@@ -7,10 +7,13 @@
 <meta name="image" content="">
 <meta name="site" content="">
 
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
 <title>Web APIs Vibration Example</title>
 
 <style>
-        header {
+/*        header {
             height: 48px;
             width: 100%;
             display: flex;
@@ -92,7 +95,7 @@
             width: 100%;
         }        
     }
-
+*/
 </style>
 
 <body>
@@ -103,9 +106,10 @@
 
         <div class="web-api-card">
             <div class="web-api-card-head">
-                Demo
+                Demo - Vibration
             </div>
             <div class="web-api-card-body">
+                <div id="error" class="close"></div>
                 <div>
                     <input id="vibTime" type="number" placeholder="Vibration time" />
                 </div>
@@ -121,10 +125,15 @@
 </body>
 
 <script>
-    function vibrate() {
-        const time = vibTime.value
-        if(time != "")
-            navigator.vibrate(time)
+    if(navigator.vibrate) {
+        function vibrate() {
+            const time = vibTime.value
+            if(time != "")
+                navigator.vibrate(time)
+        }
+    } else {
+        error.innerHTML = "Vibrate API not supported in this device."
+        error.classList.remove("close")        
     }
 </script>
 

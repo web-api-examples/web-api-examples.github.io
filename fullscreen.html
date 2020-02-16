@@ -7,10 +7,13 @@
 <meta name="image" content="">
 <meta name="site" content="">
 
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
 <title>Web APIs Fullscreen Example</title>
 
 <style>
-        header {
+/*        header {
             height: 48px;
             width: 100%;
             display: flex;
@@ -107,18 +110,46 @@
             width: 100%;
         }        
     }
+*/
+
+    .web-api-card-body {
+        font-size: 15px;
+    }
+
+    .video-stage {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+        padding: 16px;
+        border: 1px solid green;
+    }
+
+    :-full-screen .video-stage {
+        background-color: green;
+
+    }
+
+    #video {
+        width:100%;
+        height: inherit;
+        padding: 4px;
+    }
+
 
 </style>
 
 <body>
     <header>
-        <h2>Web APIs Fullscreen<h2>
+        <h2>Web APIs<h2>
     </header>
     <div class="web-api-cnt">
         <div class="web-api-card">
         <div class="web-api-card-head">
-            Demo
+            Demo - Fullscreen
         </div>
+        <div class="web-api-card-body">
+        <div id="error" class="close"></div>
         <div>
             This API makes fullscreen-mode of our webpage possible. It lets you select the Element you want to view in fullscreen-mode, then it shuts off the browsers window features like URL bar, the window pane, and presents the Element to take the entire width and height of the system.
 
@@ -134,18 +165,25 @@ In Android phones, it will remove the browsers window and the Android UI where t
 In Android phones, it will remove the browsers window and the Android UI where the network status, battery status are displayed, and display the Element in full width of the Android system.
         </div>
         </div>
+        </div>
     </div>
 </body>
 
 <script>
     const l =console.log
+
 function toggle() {
     const videoStageEl = document.querySelector(".video-stage")
-    if(!document.fullscreenElement){
-        videoStageEl.requestFullscreen()
-    }
-    else {
-        document.exitFullscreen()
+    if(videoStageEl.requestFullscreen) {
+        if(!document.fullscreenElement){
+            videoStageEl.requestFullscreen()
+        }
+        else {
+            document.exitFullscreen()
+        }
+    } else {
+        error.innerHTML = "Fullscreen API not supported in this device."
+        error.classList.remove("close")        
     }
 }
 </script>

@@ -7,10 +7,13 @@
 <meta name="image" content="">
 <meta name="site" content="">
 
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
 <title>Web APIs Channel Messaging Example</title>
 
 <style>
-        header {
+/*        header {
             height: 48px;
             width: 100%;
             display: flex;
@@ -92,6 +95,12 @@
             width: 100%;
         }        
     }
+*/
+
+    iframe {
+        width:100%;
+        height:inherit;
+    }
 
 </style>
 
@@ -103,9 +112,10 @@
 
         <div class="web-api-card">
             <div class="web-api-card-head">
-                Demo
+                Demo - MessageChannel
             </div>
             <div class="web-api-card-body">
+                <div id="error" class="close"></div>
                 <div id="displayMsg">
                 </div>
 
@@ -126,23 +136,28 @@
 </body>
 
 <script>
-    const channel = new MessageChannel()
-    const port1 = channel.port1
+    if(MessageChannel) {
+        const channel = new MessageChannel()
+        const port1 = channel.port1
 
-    iframe.addEventListener("load", onLoad)
+        iframe.addEventListener("load", onLoad)
 
-    function onLoad() {
-        port1.onmessage = onMessage
-        iframe.contentWindow.postMessage("load", channel.port2)        
-    }
+        function onLoad() {
+            port1.onmessage = onMessage
+            iframe.contentWindow.postMessage("load", channel.port2)        
+        }
 
-    function onMessage(e) {        
-        const newHTML = "<div>"+e.data+"</div>"
-        displayMsg.innerHTML = displayMsg.innerHTML + newHTML
-    }
+        function onMessage(e) {        
+            const newHTML = "<div>"+e.data+"</div>"
+            displayMsg.innerHTML = displayMsg.innerHTML + newHTML
+        }
 
-    function sendMsg() {
-        iframe.contentWindow.postMessage(input.value, channel.port2)
+        function sendMsg() {
+            iframe.contentWindow.postMessage(input.value, channel.port2)
+        }
+    } else {
+        error.innerHTML = "MessageChannel API not supported in this device."
+        error.classList.remove("close")        
     }
 </script>
 

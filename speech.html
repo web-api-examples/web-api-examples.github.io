@@ -7,10 +7,13 @@
 <meta name="image" content="">
 <meta name="site" content="">
 
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
 <title>Web APIs Speech Example</title>
 
 <style>
-        header {
+/*        header {
             height: 48px;
             width: 100%;
             display: flex;
@@ -92,7 +95,7 @@
             width: 100%;
         }        
     }
-
+*/
 </style>
 
 <body>
@@ -100,6 +103,7 @@
         <h2>Web APIs<h2>
     </header>
     <div class="web-api-cnt">
+        <div id="error" class="close"></div>
 
         <div class="web-api-card">
             <div class="web-api-card-head">
@@ -135,33 +139,36 @@
 </body>
 
 <script>
-    function speak() {
-        const speech = new SpeechSynthesisUtterance()
-        speech.text = textToSpeech.value
-        speech.volume = 1
-        speech.rate=1
-        speech.pitch=1
-        window.speechSynthesis.speak(speech)
-    }
-
-    function tapToSpeak() {
-        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition; 
-        //alert(window.SpeechRecognition);
-        const recognition = new SpeechRecognition();
-        //alert(recognition);
-        recognition.onstart = function() { }
-
-        recognition.onresult = function(event) {
-            const curr = event.resultIndex
-            const transcript = event.results[curr][0].transcript
-            speechToText.value = transcript
+    if(window.SpeechSynthesisUtterance && window.SpeechRecognition) {
+        function speak() {
+            const speech = new SpeechSynthesisUtterance()
+            speech.text = textToSpeech.value
+            speech.volume = 1
+            speech.rate=1
+            speech.pitch=1
+            window.speechSynthesis.speak(speech)
         }
 
-        recognition.onerror = function(ev) {
-            console.error(ev);//alert(ev);
-        }
+        function tapToSpeak() {
+            var SpeechRecognition = SpeechRecognition;
+            const recognition = new SpeechRecognition()
+            recognition.onstart = function() { }
 
-        recognition.start()
+            recognition.onresult = function(event) {
+                const curr = event.resultIndex
+                const transcript = event.results[curr][0].transcript
+                speechToText.value = transcript
+            }
+
+            recognition.onerror = function(ev) {
+                console.error(ev)
+            }
+
+            recognition.start()
+        }
+    } else {
+        error.innerHTML = "Web Speech API not supported in this device."
+        error.classList.remove("close")        
     }
 </script>
 </html>
