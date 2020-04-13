@@ -13,6 +13,12 @@
 <title>Web APIs getUserMedia Example</title>
 
 <style>
+    #canvas {
+        width: 100%;
+        border: 1px solid green;
+        border-radius: 3px;
+        margin: 2px 0px;
+    }
 </style>
 
 <body>
@@ -41,7 +47,8 @@
             <div class="web-api-card-body">
                 <div class="info">
                     <h4>Info</h4>
-                    <p></p>
+                    <p>This uses the <b>getUserMedia</b> to get your web camera to stream live feed to a <b>video</b> element.</p>
+                    <p>The <b>Capture</b> button will take a snapshot of the <b>video</b> element feed and draw it on a <b>canvas</b> element.</p>
                 </div>
                 <div>
                     <div>
@@ -59,12 +66,17 @@
 <script src="./js/script.js"></script>
 <script>
     navigator.mediaDevices.getUserMedia({
-        video: true
+        video: true,
+        audio: true
     }).then((stream) => {
         video.srcObject = stream
         video.play()
-        console.log(stream)
     })
+
+    function capture() {
+        const context = canvas.getContext("2d")
+        context.drawImage(video, 0, 0, canvas.height, canvas.width)
+    }
 </script>
 
 </html>
