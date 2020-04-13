@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Clipboard API">
+<meta name="description" content="API for for copying data to the clipboard.">
+<meta name="image" content="">
+<meta name="site" content="">
+
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
+<title>Web APIs Clipboard Example</title>
+
+<style>
+    #canvas {
+        border: 1px solid green;
+        border-radius: 3px;
+        width: 100%;        
+    }
+
+    #pasteId {
+        border: 1px solid green;
+        border-radius: 3px;
+        padding: 5px;
+    }
+
+</style>
+
+<body>
+    <header>
+        <h2>Web APIs</h2>
+        <div class="more-apis">
+            <ul>
+                <li>
+                    <a onclick="toggle('.dropdown')">More APIs</a>
+                    <ul class="dropdown close">
+                        <li><a>Battery API</a></li>
+                        <li><a>Vibration API</a></li>
+                        <li><a>Fullscreen API</a></li>
+                        <li><a href="./index.html">More ...</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="web-api-cnt">
+
+        <div class="web-api-card">
+            <div class="web-api-card-head">
+                Demo - Clipboard
+            </div>
+            <div class="web-api-card-body">
+                <div class="info">
+                    <h4>Info</h4>
+                    <p>Type on the inputbox and click the <b>Copy</b> button, this will copy the data in the input box to the clipboard.</p>
+                    <p>The <b>Paste</b> button will get the data from the clipboard and paste it in the card body.</p>
+                </div>
+                <div>
+                    <div>
+                        <input id="copyId" type="text" placeholder="Type your data..." />
+                        <button onclick="copy()">Copy</button>
+                    </div>
+                    <div>
+                        <div id="pasteId"></div>
+                        <button onclick="paste()">Paste</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/script.js"></script>
+<script>
+    const log = console.log
+
+    function copy() {
+        const data = copyId.value
+        navigator.clipboard.writeText(data).then(text => {
+            log(text)
+        })
+    }
+
+    function paste() {
+        navigator.clipboard.readText().then(text => {
+            log(text)
+            pasteId.innerHTML = text
+        })
+    }
+</script>
+
+</html>

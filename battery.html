@@ -17,7 +17,20 @@
 
 <body>
     <header>
-        <h2>Web APIs<h2>
+        <h2>Web APIs</h2>
+        <div class="more-apis">
+            <ul>
+                <li>
+                    <a onclick="toggle('.dropdown')">More APIs</a>
+                    <ul class="dropdown close">
+                        <li><a>History API</a></li>
+                        <li><a>Vibration API</a></li>
+                        <li><a>Fullscreen API</a></li>
+                        <li><a href="./index.html">More ...</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </header>
     <div class="web-api-cnt">
 
@@ -34,6 +47,7 @@
         </div>
     </div>
 </body>
+<script src="./js/script.js"></script>
 
 <script>
     function getBattery() {

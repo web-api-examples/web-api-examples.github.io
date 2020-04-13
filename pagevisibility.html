@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Page Visibility API">
+<meta name="description" content="API for running taks on active tabs.">
+<meta name="image" content="">
+<meta name="site" content="">
+
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
+<title>Web APIs Page Visibility Example</title>
+
+<style>
+    #setURL {
+        font-family: raleway-bold;
+        font-size: 14px;
+    }
+
+    .url {
+        display: flex;
+        width: 100%;
+    }
+
+    .url-part {
+        width: 26%;
+        text-align: right;
+        display: inline-block;
+    }
+
+    .url i {
+        font-weight: 700;
+    }
+</style>
+
+<body>
+    <header>
+        <h2>Web APIs</h2>
+        <div class="more-apis">
+            <ul>
+                <li>
+                    <a onclick="toggle('.dropdown')">More APIs</a>
+                    <ul class="dropdown close">
+                        <li><a>Battery API</a></li>
+                        <li><a>Vibration API</a></li>
+                        <li><a>Fullscreen API</a></li>
+                        <li><a href="./index.html">More ...</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="web-api-cnt">
+
+        <div class="web-api-card">
+            <div class="web-api-card-head">
+                Demo - Page Visibility Example
+            </div>
+            <div class="web-api-card-body">
+                <div class="info">
+                    <h4>Info</h4>
+                    <p>The video here will pause when you move away from this current tab or when the browser window is minimized.</p>
+                    <p>The video would resume from where it stopped when you move to the tab or when the browser window is brought to view from its minimized state.</p>
+                </div>
+                <!--<div>
+                    <iframe id="iframe" src="./iframe.content.html"></iframe>
+                </div>-->
+                <div>
+                    <div>
+                        <video id="video" src="./video.mp4" controls></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/script.js"></script>
+
+<script>
+    document.addEventListener("visibilitychange", (e) => {
+        if(document["hidden"]){
+            console.log("hidden")
+            video.pause()
+        }
+        else{
+            console.log("visible")
+            video.play()
+        }
+    })
+</script>
+
+</html>

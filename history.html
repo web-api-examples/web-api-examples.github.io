@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="History API">
+<meta name="description" content="API for navigating through history session.">
+<meta name="image" content="">
+<meta name="site" content="">
+
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
+<title>Web APIs History Example</title>
+
+<style>
+</style>
+
+<body>
+    <header>
+        <h2>Web APIs</h2>
+        <div class="more-apis">
+            <ul>
+                <li>
+                    <a onclick="toggle('.dropdown')">More APIs</a>
+                    <ul class="dropdown close">
+                        <li><a>Battery API</a></li>
+                        <li><a>Vibration API</a></li>
+                        <li><a>Fullscreen API</a></li>
+                        <li><a href="./index.html">More ...</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="web-api-cnt">
+
+        <div class="web-api-card">
+            <div class="web-api-card-head">
+                Demo - History
+            </div>
+            <div class="web-api-card-body">
+                <div class="info">
+                    <h4>Info</h4>
+                    <p>The <b>"pushState"</b> button pushes a new URL on the tab.</p>
+                    <p>The <b>"go"</b> button will navigate to the point you typed.</p>
+                    <p>The <b>"back"</b> button will take you to the previous point.</p>
+                    <p>The <b>"forward"</b> button will take you forward in the history stack.</p>
+                </div>
+                <!--<div>
+                    <iframe id="iframe" src="./iframe.content.html"></iframe>
+                </div>-->
+                <div>
+                    <div id="hist">
+
+                    </div>
+                    <style>
+                        #hist {
+                            font-family: raleway-light;
+                        }
+                    </style>
+                    <div class="divider"></div>
+                    <div>
+                        <div class="input-bg">
+                            <input id="urlToPush" type="text" placeholder="Type in the URL to push" />
+                        </div>
+                        <button onclick="pushState()">pushState</button>
+                    </div>
+                    <div class="divider"></div>
+                    <div>
+                        <input id="pointToMove" type="number" placeholder="Type in point in history stack to move to" />
+                        <button onclick="go()">go</button>
+                    </div>
+                    <div class="divider"></div>
+                    <button onclick="back()">back</button>
+                    <button onclick="forward()">forward</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/script.js"></script>
+<script>
+    let stateId = 1
+
+    function pushState() {
+        const _urlToPush = urlToPush.value
+        history.pushState( {page: ++stateId, toString: ()=> "page:"+this.page }, _urlToPush, "?"+_urlToPush)
+    }
+
+    function go() {
+        const point = pointToMove.value
+        history.go(point)
+        return;
+        if(point)
+            history.go(point)
+        else
+            history.go()
+    }
+
+    function back() {
+        history.back()
+    }
+
+    function forward() {
+        history.forward()
+    }
+
+    function renderHistory() {
+        hist.innerHTML = "History State: " + history.state       
+    }
+
+    renderHistory()
+    document.addEventListener("click", () => renderHistory())
+</script>
+
+</html>
