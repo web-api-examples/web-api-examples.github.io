@@ -15,8 +15,72 @@ header {
 
 header h2 {
     font-family: "merriweather-bold", serif;
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     line-height: 0;
+}
+
+.divider {
+    height: 1px;
+    background: green;
+    width: 97%;
+    box-sizing: border-box;
+    margin: 5px 5px;
+}
+
+iframe {
+    width: 100%;
+    border: 2px solid green;
+    border-radius: 3px;
+}
+
+.more-apis ul {
+    list-style: none;
+    margin: 0;
+    
+}
+
+.more-apis ul li {
+    cursor: pointer;
+}
+
+.more-apis ul li a {
+    position: relative;
+    font-family: raleway-bold;
+    text-decoration: none;
+}
+
+.dropdown {
+    position: absolute;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    background: white;
+    color: green;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+
+}
+
+.dropdown li {
+    padding: 4px 0;
+}
+
+.dropdown li:hover {
+    text-decoration: none;
+    color: #252727;
+    background-color: #f5f5f5;
+
+    font-size: 20px;
+}
+
+.dropdown li a {
+    white-space: nowrap;
+    padding: 5px 20px;
+}
+
+@media(max-width: 436px) {
+    .dropdown {
+        right: 30px;        
+    }
 }
 
 html {
@@ -90,6 +154,10 @@ button {
     font-family: "raleway-heavy", sans-serif;
 }
 
+button:active {
+    border: 2px solid;
+}
+
 #error {
     //width:inherit;
     background-color: #ff4500a1;
@@ -102,17 +170,58 @@ button {
     border-left-style:solid;
 }
 
+.info {
+    margin: 4px;
+    background: #0080008c;
+    border: 2px solid;
+    border-color: green;
+    padding: 15px;
+    
+    border-radius: 3px;
+    color: white;
+    
+    text-align: left;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-family: raleway-light;
+}
+
+.info h4 {
+    margin:2px;
+}
+
+.info p {
+    margin: 1px;
+}
+
 .close {
     display: none;
 }
 
 input, textarea {
-    width:100%;
+    width:98%;
     position: relative;
+    box-sizing: border-box;
+
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    border-color: #008000;
+    font-size: 17px;
+}
+
+input:focus {
+    border: 2px solid green;
+}
+
+video, audio {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .input-bg {
-    height: 25px;
+    /* height: 25px; */
     border-radius: 3px;
     border-top-width: 1px;
     border-left-width: 1px;
