@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Encoding API">
+<meta name="description" content="API for text encoding and decoding.">
+<meta name="image" content="">
+<meta name="site" content="">
+
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+
+<title>Web APIs Encoding Example</title>
+
+<style>
+</style>
+
+<body>
+    <header>
+        <h2>Web APIs</h2>
+        <div class="more-apis">
+            <ul>
+                <li>
+                    <div>
+                        <a onclick="toggle('.dropdown')">More APIs</a>
+                        <ul class="dropdown close">
+                            <li><a>Battery API</a></li>
+                            <li><a>Vibration API</a></li>
+                            <li><a>Fullscreen API</a></li>
+                            <li><a href="./index.html">More ...</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="web-api-cnt">
+
+        <div class="web-api-card">
+            <div class="web-api-card-head">
+                Demo - Encoding
+            </div>
+            <div class="web-api-card-body">
+                <div class="info">
+                    <h4>Info</h4>
+                    <p></p>
+                </div>
+                <div>
+                    <div>
+                        <input id="encoding" type="text" placeholder="Type word to encode..." />
+                        <div id="encodeRes"></div>
+                    </div>
+                    <div>
+                        <button onclick="encode()">Encode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/script.js"></script>
+<script>
+    const log = console.log
+
+    function encode() {
+        const text = encoding.value
+        const t = new TextEncoder("utf-16le")
+        log(ab2str(t.encode(text)))
+        encodeRes.innerHTML = ab2str(t.encode(text))
+    }
+
+    function ab2str(b) {
+        return String.fromCharCode.apply(null, new Uint16Array(b))
+    }
+
+</script>
+
+</html>

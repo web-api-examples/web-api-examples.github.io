@@ -26,13 +26,15 @@
         <div class="more-apis">
             <ul>
                 <li>
-                    <a onclick="toggle('.dropdown')">More APIs</a>
-                    <ul class="dropdown close">
-                        <li><a>Battery API</a></li>
-                        <li><a>Vibration API</a></li>
-                        <li><a>Fullscreen API</a></li>
-                        <li><a href="./index.html">More ...</a></li>
-                    </ul>
+                    <div>
+                        <a onclick="toggle('.dropdown')">More APIs</a>
+                        <ul class="dropdown close">
+                            <li><a>Battery API</a></li>
+                            <li><a>Vibration API</a></li>
+                            <li><a>Fullscreen API</a></li>
+                            <li><a href="./index.html">More ...</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -46,14 +48,11 @@
             <div class="web-api-card-body">
                 <div class="info">
                     <h4>Info</h4>
-                    <p></p>
+                    <p>The canvas element will respond to touch movement across touchscreen phones and trackballs to draw the finger movement.</p>
                 </div>
                 <div>
                     <div>
                         <canvas id="canvas"></canvas>
-                    </div>
-                    <div>
-                        <button onclick="capture()">Capture</button>
                     </div>
                 </div>
             </div>
@@ -62,9 +61,42 @@
 </body>
 <script src="./js/script.js"></script>
 <script>
-    canvas.addEventListener("touchstart", ()=> {
-        console.log("touch start")
+    canvas.addEventListener("touchstart", (evt)=> {
+        const ctx = canvas.getContext("2d")
+        const { touches } = evt
+        for (var index = 0; index < touches.length; index++) {
+            var touch = touches[index];
+            const { pageX, pageY } = touch
+            /*ctx.beginPath()
+            ctx.moveTo(pageX, pageY)*/
+            console.log(touch)
+            console.log("touchstart => pageX:" + pageX, "pageY:" + pageY);
+ctx.arc(0, 0, 4, 0, 2 * Math.PI, false); 
+// a circle at the start 
+ctx.fillStyle = "#101010"; ctx.fill();
+        }
     })
+
+    canvas.addEventListener("touchmove", (evt)=> {
+        const ctx = canvas.getContext("2d")
+        const { touches } = evt
+        for (var index = 0; index < touches.length; index++) {
+            var touch = touches[index];
+            const { pageX, pageY } = touch
+            console.log("touchmove => pageX:" + pageX, "pageY:" + pageY)
+
+            ctx.beginPath()
+            /*ctx.moveTo(pageX, pageY)*/
+            ctx.beginPath()
+            ctx.moveTo(0, 0)
+
+            ctx.lineTo(pageX, pageY)
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#101010"
+            ctx.stroke()
+        }
+    })
+
 </script>
 
 </html>

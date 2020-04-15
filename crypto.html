@@ -26,13 +26,15 @@
         <div class="more-apis">
             <ul>
                 <li>
-                    <a onclick="toggle('.dropdown')">More APIs</a>
-                    <ul class="dropdown close">
-                        <li><a>Battery API</a></li>
-                        <li><a>Vibration API</a></li>
-                        <li><a>Fullscreen API</a></li>
-                        <li><a href="./index.html">More ...</a></li>
-                    </ul>
+                    <div>
+                        <a onclick="toggle('.dropdown')">More APIs</a>
+                        <ul class="dropdown close">
+                            <li><a>Battery API</a></li>
+                            <li><a>Vibration API</a></li>
+                            <li><a>Fullscreen API</a></li>
+                            <li><a href="./index.html">More ...</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -41,19 +43,25 @@
 
         <div class="web-api-card">
             <div class="web-api-card-head">
-                Demo - Crypto
+                Demo - Crypto (RSA-OEAP)
             </div>
             <div class="web-api-card-body">
                 <div class="info">
                     <h4>Info</h4>
-                    <p></p>
+                    <p>The text you type in the input box will be encrypted with the RSA-OEAP encryption algortihm.</p>
+                    <p>The <b>Decrypt</b> button will decrypt the encrypted data.</p>
                 </div>
                 <div>
                     <div>
-                        <canvas id="canvas"></canvas>
+                        <input id="rsaOeap" type="text" placeholder="(RSA-OEAP) Type word to encrypt..." />
+                        <div id="rsaOeapRes"></div>
                     </div>
                     <div>
-                        <button onclick="capture()">Capture</button>
+                        <button onclick="rsaOeapEncrypt()">Encrypt (RSA-OEAP</button>
+                    </div>
+                    <div id="rsaOeapResDecrypt"></div>
+                    <div>
+                        <button onclick="rsaOeapDecrypt()">Decrypt (RSA-OEAP</button>
                     </div>
                 </div>
             </div>
@@ -64,28 +72,56 @@
 <script>
     const log = console.log
 
-    const en = new TextEncoder()
-    const data = en.encode("I'm good")
+    function ab2str(b) {
+        return String.fromCharCode.apply(null, new Uint16Array(b))
+    }
 
-    log(data)
+    let oeapKey
+    let cipherText
 
-    crypto.subtle.generateKey(
-        {
-            name: "RSA-OAEP",        
-        },
-        false,
-        ["encrypt", "decrypt"]
-    ).then( key => {
-        const crypt = crypto.subtle.encrypt(
+    function rsaOeapEncrypt() {
+        const dataToEncrypt = rsaOeap.value
+        const en = new TextEncoder()
+        const data = en.encode(dataToEncrypt)
+
+        crypto.subtle.generateKey(
+            {
+                name: "RSA-OAEP",
+                modulusLength: 2048,
+                publicExponent: new Uint8Array([1, 0, 1]),
+                hash: "SHA-256"
+            },
+            true,
+            ["encrypt", "decrypt"]
+        ).then( key => {
+            oeapKey = key
+            crypto.subtle.encrypt(
+                {
+                    name: "RSA-OAEP"
+                },
+                oeapKey.publicKey,
+                data
+            ).then(cipherTxt => {
+                cipherText = cipherTxt
+                log(cipherText)
+                rsaOeapRes.innerHTML = cipherTxt
+            })
+        })
+
+    }
+
+    function rsaOeapDecrypt() {
+        crypto.subtle.decrypt(
             {
                 name: "RSA-OAEP"
             },
-            key,
-            data
-        )
-        console.log(crypt)
-    })
-
+            oeapKey.privateKey,
+            cipherText
+        ).then(decryptRes => {
+            log(decryptRes)
+            rsaOeapResDecrypt.innerHTML = decryptRes
+        })        
+    }
 </script>
 
 </html>
