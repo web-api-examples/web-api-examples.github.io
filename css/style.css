@@ -1,3 +1,7 @@
+* {
+     text-decoration: none; 
+}
+
 header {
     //height: 48px;
     width: 100%;
@@ -21,7 +25,7 @@ header h2 {
 
 .divider {
     height: 1px;
-    background: green;
+    background: #ddd;
     width: 97%;
     box-sizing: border-box;
     margin: 5px 5px;
@@ -43,7 +47,9 @@ iframe {
     cursor: pointer;
 }
 
-.more-apis ul li a {
+.more-apis ul li a {}
+
+.more-apis ul li div {
     position: relative;
     font-family: raleway-bold;
     text-decoration: none;
@@ -58,6 +64,8 @@ iframe {
     color: green;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
 
+    top: 100%;
+    left: 0;
 }
 
 .dropdown li {
@@ -75,11 +83,18 @@ iframe {
 .dropdown li a {
     white-space: nowrap;
     padding: 5px 20px;
+
+    text-decoration: none;
+    color: green;
+}
+
+.dropdown li a:visited {
+    color: limegreen;
 }
 
 @media(max-width: 436px) {
     .dropdown {
-        right: 30px;        
+        left: -72px;
     }
 }
 
@@ -152,6 +167,7 @@ button {
     background-image: none;
     border: 1px solid transparent;
     font-family: "raleway-heavy", sans-serif;
+    margin: 2px; 
 }
 
 button:active {
