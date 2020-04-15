@@ -1,5 +1,5 @@
 * {
-     text-decoration: none; 
+     text-decoration: none; outline: none; 
 }
 
 header {
@@ -224,7 +224,7 @@ input, textarea {
     border: 1px solid #ddd;
     border-radius: 3px;
     border-color: #008000;
-    font-size: 17px;
+    font-size: 17px;outline: none; 
 }
 
 input:focus {
