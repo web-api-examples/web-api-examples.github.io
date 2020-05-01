@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+
+<meta name="title" content="Pseudoselectors">
+<meta name="description" content="Pseudoselectors">
+<meta name="image" content="">
+
+<!--<meta name="site" content="">
+
+<link type="text/css" rel="stylesheet" href="./css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="./css/style.css" />
+-->
+
+<title>Playground</title>
+
+<style>
+    body {
+        background: #ddd;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab {
+        width: 500px;
+        background: white;
+    }
+
+    .tab-head ul {
+        list-style: none;
+        height: 48px;
+        margin: 0;
+        padding-left: 0;
+
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tab-head ul li {
+        display: inline-block;
+        padding: 12px 12px;
+        float: left;
+        cursor: pointer;
+    }
+
+    .tab-head ul li.active {
+        border-top: 4px solid blue;
+
+        border-left: 1px solid #ddd;
+        border-right: 1x solid #ddd; 
+    }
+
+    .tab-content {
+        padding: 4px;
+        display: none;
+    }
+
+    .tab-active {
+        display: block;        
+    }
+
+
+</style>
+
+<body>
+    <div class="tab">
+        <div class="tab-head">
+            <ul>
+                <li onclick="selectTab()">Tab 1</li>
+                <li onclick="selectTab()">Tab 2</li>
+                <li onclick="selectTab()" class="active">Tab 3</li>
+            </ul>
+        </div>
+        <div class="tab-body">
+            <div class="tab-content tab-active">
+                Div 2
+            </div>        
+            <div class="tab-content">
+                Div 3
+            </div>
+            <div class="tab-content">
+                Div 4
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function selectTab(e) {
+        console.log(this.value, e)
+        // get the current tab active
+        const currTab = document.querySelector(".active")
+
+        // get the current tab-content active        
+        const currTabContent = document.querySelector(".tab-active")
+    }    
+</script>
+</html>

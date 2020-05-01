@@ -1,0 +1,130 @@
+<html doctype>
+    <head>
+        <title>Visual Design Tool</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">	
+    <style>
+
+        body {
+            width:100%;
+         
+			display:flex;
+
+			/* justify-content: center; */
+			margin-top: 55px;
+			align-items: center;			
+            height: 100%;
+		}
+
+        .componentsPanel {
+            width: 30%;
+            height: 100%;
+            border: 1px solid lightseagreen;
+
+            background: black;
+            color: white;
+
+            padding: 5px 10px;
+
+        }
+
+        .hellbox {
+            border: 1px solid palevioletred;
+            width: 100%;
+            height: 100%;
+        }
+
+        .propsPanel {
+            width: 30%;
+            height: 100%;
+            border: 1px solid limegreen;
+
+        }
+
+        .hellbox button {
+            padding: 5px;
+            color: white;
+            background: palevioletred;
+            border: unset;
+        }
+
+        .draggable {
+            background: gray;
+            padding: 5px 10px;
+            margin: 2px 0;
+        }
+
+        .hellboxSelected {
+            border: 1px solid lime !important;
+        }
+
+    </style>
+
+	</head>
+    <body>	
+        <div class="componentsPanel">
+            <div id="draggable" element="div" elementText="Div" class="draggable" draggable="true" ondragstart = "return dragStart(event)">Div</div>
+            <div id="draggable" element="button" elementText="Button" class="draggable" draggable="true" ondragstart = "return dragStart(event)">Button</div>
+        </div>
+		<div id="hellbox" onclick="return hellboxClick(event)" class="hellbox" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+            Hell
+		</div>
+        <div class="propsPanel" id="propsPanel">
+        </div>
+    </body>
+    <script>
+        function dragStart(ev) {
+            ev.dataTransfer.effectAllowed = 'copy';
+            /* ev.target.getAttribute('id') */
+            ev.dataTransfer.setData("element", ev.target.getAttribute('element'));
+            ev.dataTransfer.setData("elementText", ev.target.getAttribute('elementText'));
+            ev.dataTransfer.setDragImage(ev.target, 0, 0);
+            return true;
+        }
+
+        function dragEnter(ev){
+            event.preventDefault();
+            return true;
+        }
+
+        function dragOver(ev) {
+            return false;
+        }
+
+        function dragDrop(ev){
+            var src = ev.dataTransfer.getData("element");
+            var elText = ev.dataTransfer.getData("elementText");
+
+            const el = document.createElement(src)
+            el.append(document.createTextNode(elText))
+            ev.target.appendChild(el);
+            ev.stopPropagation();
+            return false;
+        }
+
+        function hellboxClick(ev) {
+            const nodes = document.querySelectorAll(".hellboxSelected")
+            nodes.forEach(node => {
+                node.classList.remove("hellboxSelected")
+            })
+
+            ev.target.classList.add("hellboxSelected")
+
+            displayProps(ev.target)
+        }
+
+        function displayProps(el) {
+            const { innerHTML, innerText, style } = el;
+            console.log(el, style)
+            const { width, height, color, background } = style;
+
+            propsPanel.innerHTML = ""
+
+            propsPanel.innerHTML += `
+                <div>
+                    <div>Width: ${width}</div>
+                    <div>Height: ${height}</div>
+                </div>
+            `
+        }
+    </script>
+</html>

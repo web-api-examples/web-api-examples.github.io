@@ -1,0 +1,81 @@
+<html doctype>
+    <head>
+        <title>Drag N Drop API</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">	
+    <style>
+
+        body {
+            width:100%;
+         
+			display:flex;
+			width: inherit;
+			justify-content: center;
+			margin-top: 55px;
+			align-items: center;			
+		}
+
+        div {
+            white-space: nowrap;
+            padding: 10px;
+            color: white;
+        }
+
+        .hellbox {
+            background: red;
+
+            width: 200px;
+            height: 90px;
+
+        }
+
+        .hellbox div {
+            background: palevioletred;
+        }
+
+        .draggable {
+            background: orange;
+            width: 100px;
+            height: 50px;
+        }
+
+    </style>
+
+	</head>
+    <body>	
+		<div id="hellbox" onclick="return hellboxClick(event)" class="hellbox" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+            Box
+		</div>
+        <div id="draggable" class="draggable" draggable="true" ondragstart = "return dragStart(event)">
+            Drag Me
+        </div>
+    </body>
+    <script>
+        function dragStart(ev) {
+            ev.dataTransfer.effectAllowed = 'copy';
+            ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+            ev.dataTransfer.setDragImage(ev.target, 0, 0);
+            return true;
+        }
+
+        function dragEnter(ev){
+            event.preventDefault();
+            return true;
+        }
+
+        function dragOver(ev){
+            return false;
+        }
+
+        function dragDrop(ev){
+            var src = ev.dataTransfer.getData("Text");
+            ev.target.appendChild(document.getElementById(src));
+            ev.stopPropagation();
+            return false;
+        }
+
+        function hellboxClick(ev) {
+            console.log(ev)
+            ev.target.classList.add(".edit")
+        }
+    </script>
+</html>
