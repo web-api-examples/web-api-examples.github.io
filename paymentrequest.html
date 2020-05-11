@@ -17,8 +17,46 @@
 
 <body>
     <header>
-        <h2>Web APIs<h2>
+        <div class="header-bars" onclick="toggleNav('.aside-navbar')"><span class="header-bar fa-bars"></span></div>
+        <div class="title-bar"><h2>Web APIs</h2></div>
+        <div class="navbar">
+            <ul class="navbar-nav">
+                <li class="navbar-nav-item">
+                    <a onclick="toggle('.dropdown')">More APIs</a>
+                    <ul class="dropdown close">
+                        <li class="dropdown-item"><a>History API</a></li>
+                        <li class="dropdown-item"><a>Vibration API</a></li>
+                        <li class="dropdown-item"><a>Fullscreen API</a></li>
+                        <li class="dropdown-item"><a href="./index.html">More ...</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </header>
+    <aside class="aside-sidebar" id="leftAside">
+        <div class="aside-sidebar-header">
+            <h3>Web APIs Menu</h3></div>
+        <ul>
+            <li><a href="./bluetooth.html">Bluetooth API</a></li>            
+            <li><a href="./touch.html">Touch API</a></li>
+            <li><a href="./battery.html">Battery API</a></li>
+            <li><a href="./clipboard.html">Clipboard API</a></li>
+            <li><a href="./audio.html">Web Audio API</a></li>
+            <li><a href="./broadcastchannel.html">Broadcastchannel Messaging API</a></li>
+            <li><a href="./channelmessaging.html">Channel Messaging API</a></li>
+            <li><a href="./fullscreen.html">Fullscreen API</a></li>
+            <li><a href="./history.html">History API</a></li>
+            <li><a href="./vibration.html">Vibration API</a></li>
+            <li><a href="./url.html">URL API</a></li>
+            <li><a href="./speech.html">Web Speech API</a></li>
+            <li><a href="./resizeobserver.html">Resize Observer API</a></li>
+            <li><a href="./touch.html">Touch API</a></li>
+            <li><a href="./pointerlock.html">Pointer Lock API</a></li>
+            <li><a class="aside-sidebar-active" href="./paymentrequest.html">Payment Request API</a></li>
+            <li><a href="./pagevisibility.html">Page Visibility API</a></li>
+        </ul>
+    </aside>
+<div class="container">
     <div class="web-api-cnt">
 
         <div class="web-api-card">
@@ -35,7 +73,9 @@
         </div>
 
     </div>
+</div>
 </body>
+<script src="./js/script.js"></script>
 
 <script>
     const networks = ["visa", "amex"]

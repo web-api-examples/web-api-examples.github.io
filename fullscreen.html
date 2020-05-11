@@ -43,8 +43,46 @@
 
 <body>
     <header>
-        <h2>Web APIs<h2>
+        <div class="header-bars" onclick="toggleNav('.aside-navbar')"><span class="header-bar fa-bars"></span></div>
+        <div class="title-bar"><h2>Web APIs</h2></div>
+        <div class="navbar">
+            <ul class="navbar-nav">
+                <li class="navbar-nav-item">
+                    <a onclick="toggle('.dropdown')">More APIs</a>
+                    <ul class="dropdown close">
+                        <li class="dropdown-item"><a>History API</a></li>
+                        <li class="dropdown-item"><a>Vibration API</a></li>
+                        <li class="dropdown-item"><a>Fullscreen API</a></li>
+                        <li class="dropdown-item"><a href="./index.html">More ...</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </header>
+    <aside class="aside-sidebar" id="leftAside">
+        <div class="aside-sidebar-header">
+            <h3>Web APIs Menu</h3></div>
+        <ul>
+            <li><a href="./bluetooth.html">Bluetooth API</a></li>            
+            <li><a href="./touch.html">Touch API</a></li>
+            <li><a href="./battery.html">Battery API</a></li>
+            <li><a href="./clipboard.html">Clipboard API</a></li>
+            <li><a href="./audio.html">Web Audio API</a></li>
+            <li><a href="./broadcastchannel.html">Broadcastchannel Messaging API</a></li>
+            <li><a href="./channelmessaging.html">Channel Messaging API</a></li>
+            <li><a class="aside-sidebar-active" href="./fullscreen.html">Fullscreen API</a></li>
+            <li><a href="./history.html">History API</a></li>
+            <li><a href="./vibration.html">Vibration API</a></li>
+            <li><a href="./url.html">URL API</a></li>
+            <li><a href="./speech.html">Web Speech API</a></li>
+            <li><a href="./resizeobserver.html">Resize Observer API</a></li>
+            <li><a href="./touch.html">Touch API</a></li>
+            <li><a href="./pointerlock.html">Pointer Lock API</a></li>
+            <li><a href="./paymentrequest.html">Payment Request API</a></li>
+            <li><a href="./pagevisibility.html">Page Visibility API</a></li>
+        </ul>
+    </aside>
+<div class="container">
     <div class="web-api-cnt">
         <div class="web-api-card">
         <div class="web-api-card-head">
@@ -59,7 +97,7 @@ In Android phones, it will remove the browsers window and the Android UI where t
         </div>
         <div class="video-stage">
             <video id="video" src="./video.mp4"></video>
-            <button onclick="toggle()">Toogle Fullscreen</button>
+            <button onclick="toggleFullscreen()">Toogle Fullscreen</button>
         </div>
         <div>
             This API makes fullscreen-mode of our webpage possible. It lets you select the Element you want to view in fullscreen-mode, then it shuts off the browsers window features like URL bar, the window pane, and presents the Element to take the entire width and height of the system.
@@ -69,12 +107,14 @@ In Android phones, it will remove the browsers window and the Android UI where t
         </div>
         </div>
     </div>
+</div>
 </body>
+<script src="./js/script.js"></script>
 
 <script>
     const l =console.log
 
-function toggle() {
+function toggleFullscreen() {
     const videoStageEl = document.querySelector(".video-stage")
     if(videoStageEl.requestFullscreen) {
         if(!document.fullscreenElement){
