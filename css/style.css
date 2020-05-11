@@ -83,7 +83,7 @@ header {
     flex-direction: row;
     /* justify-content: center; */
     align-items: center;
-    margin-left: 15%;
+    //margin-left: 15%;
     margin-right: 15%;
     background-color: green;
     color:white;
@@ -92,6 +92,10 @@ header {
 
     z-index: 3;
     white-space: nowrap;
+
+    position: fixed;
+    top: 0;
+left: 0;right:0;
 
 }
 
@@ -105,6 +109,16 @@ header h2 {
 
 .container {
     margin-left: 280px;
+
+    margin-top: 48px;
+}
+
+.indexContainer {
+    margin-left: 0;    
+}
+
+.flex-center-main {
+    justify-content: center !important;
 }
 
 .header-bars {
@@ -272,6 +286,10 @@ header h2 {
     font-weight: 600;
 }
 
+.web-api-card-head a {
+    color: green !important;    
+}
+
 .web-api-card-body {
     font-family: "merriweather-light", serif;
     text-align: center;
@@ -334,7 +352,8 @@ header h2 {
 }
 
 .aside-sidebar {
-    position: absolute;
+    /*position: absolute; */
+    position: fixed;
     top: 0;
     left: 0;
     padding-top: 50px;
@@ -350,6 +369,9 @@ header h2 {
     z-index: 1;
 
     display: block;
+
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .aside-sidebar div {
@@ -377,16 +399,24 @@ header h2 {
     display: block;
 
     text-decoration: none;
+    color: #aeb3a2;    
 }
 
 .aside-sidebar ul li a:visited {
-    color: inherit;    
+    color: #aeb3a2;    
 }
 
 .aside-sidebar ul li a:hover {
     border-left: 3px solid green;
     background: rgba(0, 0, 0, 0.33);
     color: white;
+}
+
+.aside-sidebar-active {
+    border-left: 3px solid green !important;
+    background: rgba(0, 0, 0, 0.33) !important;
+    color: white !important;
+    cursor: not-allowed;
 }
 
 @media(max-width:600px) {
